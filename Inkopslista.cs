@@ -5,7 +5,7 @@ using System;
 // Hjälper till att använda List<T> och Dictionary<TKey, TValue>.
 using System.Collections.Generic;
 
-// Behövs eftersom vi använder metoden All().
+// Behövs eftersom vi använder metoden All() och Sum().
 using System.Linq;
 
 
