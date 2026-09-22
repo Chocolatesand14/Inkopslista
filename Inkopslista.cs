@@ -282,6 +282,8 @@ while (!lager.All(antal => antal == 0) || varukorg.Count > 0)
 // Kvitto: visar varukorgen med produkter, antal och totalpris.
 Console.WriteLine();
 Console.WriteLine("Kvitto:");
+// Lagt till en rad med streck för att separera kvittot från totalen.
+Console.WriteLine("-------------------------------");
 
 if (varukorg.Count > 0)
 {
@@ -313,4 +315,6 @@ Console.WriteLine(
     $"Total: {totalPris} kr"
 );
 Console.WriteLine("-------------------------------");
-Console.WriteLine("Välkommen åter");
+Console.WriteLine("Öppet hela dygnet, alla dagar i veckan");
+Console.WriteLine("Välkommen åter!");
+
