@@ -308,7 +308,7 @@ Console.WriteLine(
 
 // Visar totalpriset.
 Console.WriteLine(
-    $"Du betalade totalt: {totalPris} kr"
+    $"Totalt: {totalPris} kr"
 );
 
-Console.WriteLine("Tack för ditt köp!");
+Console.WriteLine("Välkommen åter");
