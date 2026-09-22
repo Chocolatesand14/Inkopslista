@@ -300,15 +300,17 @@ else
     Console.WriteLine("Inga produkter var köpta.");
 }
 
-
 // Visar totalt antal köpta produkter.
 Console.WriteLine(
-    $"Total antal produkter: {varukorg.Values.Sum()}"
+    $"Antal produkter: {varukorg.Values.Sum()}"
 );
+
+// Har lagt till en rad med streck för att separera kvittot från totalen.
+Console.WriteLine("-------------------------------");
 
 // Visar totalpriset.
 Console.WriteLine(
-    $"Totalt: {totalPris} kr"
+    $"Total: {totalPris} kr"
 );
-
+Console.WriteLine("-------------------------------");
 Console.WriteLine("Välkommen åter");
