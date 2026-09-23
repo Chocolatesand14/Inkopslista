@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-//Skapar listor för varor, priser och lagerstatus
+//Skapar listor för varor, priser och lagerstatus.
 List<string> varor = new List<string>
 {
     "Mjölk",
@@ -31,16 +31,16 @@ List<int> lager = new List<int>
 };
 
 
-//Varukorg med vilken vara som köpts och hur många 
+//Varukorg med vilken vara som köpts och hur många.
 Dictionary<string, int> varukorg = new Dictionary<string, int>();
 int totalPris = 0;
 
-//Rubrik för inköpslistan
+//Rubrik för inköpslistan.
 Console.WriteLine("==============================");
 Console.WriteLine("        INKÖPSLISTA");
 Console.WriteLine("==============================");
 
-//Loopar tills alla varor är slut i lager och varukorgen är tom
+//Loopar tills alla varor är slut i lager och varukorgen är tom.
 while (!lager.All(x => x == 0) || varukorg.Count > 0)
 {
 
@@ -61,7 +61,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    // Visar vad som ligger i den aktuella varukorgen
+    //Visar vad som ligger i den aktuella varukorgen.
     if (varukorg.Count > 0)
     {
         Console.WriteLine("\nVarukorg:");
@@ -77,7 +77,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
         Console.WriteLine("\nVarukorgen är tom.");
     }
 
-//Låter avnvändare navigera i menyn med en siffra eller bokstavera menyvalet.
+//Låter kunden navigera i menyn med en siffra eller bokstavera menyvalet.
     Console.WriteLine(
         "\nSkriv varans namn, nummer eller 'borttag'. Enter = avsluta"
     );
@@ -159,7 +159,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    //Hitta varan som användaren valt
+    //Hitta varan som kunden valt
     int varanIndex = -1;
 
     if (int.TryParse(val, out int valtNummer))
@@ -170,7 +170,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
         }
         else
         {
-            //Felhantering om användaren råkar välja ett nummer som inte finns i menyn.
+            //Felhantering om kunden råkar välja ett nummer som inte finns i menyn.
             Console.WriteLine("Ogiltigt nummer.");
             continue;
         }
