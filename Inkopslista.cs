@@ -1,10 +1,14 @@
-
+//Raden hjälper till med att koden inte behöver specifiera ett systemnamn varje gång man använder en klass från System namespace.
 using System;
+
+//Raden hjälper för att skapa en inköpslista med varor, priser och lagerstatus. 
 using System.Collections.Generic;
+
+//Raden hjälper till med att använda metoder som t.ex. .All() och .Sum() för att arbeta med listor.
 using System.Linq;
 
 
-// Varor, priser och lager
+//Skapar listor för varor, priser och lagerstatus
 List<string> varor = new List<string>
 {
     "Mjölk",
@@ -27,22 +31,26 @@ List<int> lager = new List<int>
 };
 
 
-// Varukorg och totalpris
+//Varukorg med vilken vara som köpts och hur många 
 Dictionary<string, int> varukorg = new Dictionary<string, int>();
 int totalPris = 0;
 
-
+//Rubrik för inköpslistan
 Console.WriteLine("==============================");
 Console.WriteLine("        INKÖPSLISTA");
 Console.WriteLine("==============================");
 
-
+//Loopar tills alla varor är slut i lager och varukorgen är tom
 while (!lager.All(x => x == 0) || varukorg.Count > 0)
 {
+
+//Visar alla varor, priser och lagerstatus
     Console.WriteLine("\nVaror:");
 
     for (int i = 0; i < varor.Count; i++)
     {
+
+//Om varan skulle vara slutsåld så visas detta istället.
         string status = lager[i] > 0
             ? $"{lager[i]} st i lager"
             : "SLUT I LAGER";
@@ -53,7 +61,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    // Visar varukorgen
+    // Visar vad som ligger i den aktuella varukorgen
     if (varukorg.Count > 0)
     {
         Console.WriteLine("\nVarukorg:");
@@ -65,14 +73,16 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
     else
     {
+//Visas om varukorgen skulle vara tom
         Console.WriteLine("\nVarukorgen är tom.");
     }
 
-
+//Låter avnvändare navigera i menyn med en siffra eller bokstavera menyvalet.
     Console.WriteLine(
         "\nSkriv varans namn, nummer eller 'borttag'. Enter = avsluta"
     );
 
+//Felhantering för tomma strängar och null.
     string? val = Console.ReadLine();
 
     if (string.IsNullOrWhiteSpace(val))
@@ -81,25 +91,27 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    // Ta bort en vara från varukorgen
+//Borttag tar bort en vara i varukorgen och den läggs tillbaka i lager.
     if (val.Equals("borttag", StringComparison.OrdinalIgnoreCase))
     {
         if (varukorg.Count == 0)
         {
+//Om varukorgen är tom och det inte heller går att ta bort en vara visas den här felhanteringen.
             Console.WriteLine("Varukorgen är tom.");
             continue;
         }
 
+//Användaren kan välja att ta bort en vara med nummer eller namn på varan.
         Console.Write("Vilken vara vill du ta bort? ");
         string? borttagVal = Console.ReadLine();
 
         if (string.IsNullOrWhiteSpace(borttagVal))
         {
-            continue;
+            continue; //Åter till huvudmenyn
         }
 
+//Letar upp varan som ska tas bort.
         int index = -1;
-
         if (int.TryParse(borttagVal, out int nummer))
         {
             if (nummer >= 1 && nummer <= varor.Count)
@@ -147,7 +159,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    // Hitta varan som användaren valt
+    //Hitta varan som användaren valt
     int varanIndex = -1;
 
     if (int.TryParse(val, out int valtNummer))
@@ -158,6 +170,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
         }
         else
         {
+            //Felhantering om användaren råkar välja ett nummer som inte finns i menyn.
             Console.WriteLine("Ogiltigt nummer.");
             continue;
         }
@@ -179,7 +192,8 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    // Köp varan
+    //Kunden ska köpa och betala för sina varor. 
+    //Om varan skulle vara slut i lager visas det som en felhantering med ett meddelande.
     if (lager[varanIndex] > 0)
     {
         string valdVara = varor[varanIndex];
@@ -209,13 +223,14 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
 }
 
 
-// ==============================
-// KVITTO
-// ==============================
+//Om kunden har köpt och betalt för sina varor syns det i kvittot med namnet på varan, antal varor och vad totalpriset blev.
+//Om kunden inte har köpt något, så visas det som att inga varor var köpta.
 
 int kvittoNummer = Random.Shared.Next(10000, 99999);
 DateTime datum = DateTime.Now;
 
+//Efter har kollat på ett kvitto hemma, valde jag att piffa upp mitt kvitto lite med vad som finns på ett riktigt kvitto.
+//Det jag la till var kvittonummer, dagens datum och vilken tid som köpet gjordes.
 Console.WriteLine();
 Console.WriteLine("==============================");
 Console.WriteLine("           KVITTO");
@@ -238,6 +253,7 @@ foreach (var artikel in varukorg)
 
 if (varukorg.Count == 0)
 {
+    //Felhantering om inga varor var köpta.
     Console.WriteLine("Inga varor var köpta.");
 }
 
@@ -246,6 +262,7 @@ Console.WriteLine("------------------------------");
 Console.WriteLine($"Antal varor: {varukorg.Values.Sum()}");
 Console.WriteLine($"Totalt: {totalPris} kr");
 Console.WriteLine("==============================");
+//Valde att avsluta kvitto med öppettider och ett välkommer åter.
 Console.WriteLine("Öppet hela dygnet, alla dagar i veckan");
 Console.WriteLine("Välkommen åter!");
 
