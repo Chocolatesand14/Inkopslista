@@ -44,7 +44,7 @@ Console.WriteLine("==============================");
 while (!lager.All(x => x == 0) || varukorg.Count > 0)
 {
 
-// Visar alla varor, priser och lagerstatus
+// Visar alla varor, priser och lagerstatus.
     Console.WriteLine("\nVaror:");
 
     for (int i = 0; i < varor.Count; i++)
@@ -73,7 +73,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
     else
     {
-// Visas om varukorgen skulle vara tom
+// Visas om varukorgen skulle vara tom.
         Console.WriteLine("\nVarukorgen är tom.");
     }
 
@@ -107,7 +107,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
 
         if (string.IsNullOrWhiteSpace(borttagVal))
         {
-            continue; //Åter till huvudmenyn
+            continue; //Åter till huvudmenyn.
         }
 
 // Letar upp varan som ska tas bort.
@@ -159,7 +159,7 @@ while (!lager.All(x => x == 0) || varukorg.Count > 0)
     }
 
 
-    // Hittar varan som kunden valt
+    // Hittar varan som kunden valt.
     int varanIndex = -1;
 
     if (int.TryParse(val, out int valtNummer))
@@ -263,7 +263,7 @@ Console.WriteLine("------------------------------");
 Console.WriteLine($"Antal varor: {varukorg.Values.Sum()}");
 Console.WriteLine($"Totalt: {totalPris} kr");
 Console.WriteLine("==============================");
-// Valde att avsluta kvitto med öppettider och ett välkommer åter.
+// Valde att avsluta kvittot med öppettider och "Välkommen åter".
 Console.WriteLine("Öppet hela dygnet, alla dagar i veckan");
 Console.WriteLine("Välkommen åter!");
 
