@@ -31,19 +31,28 @@ string? nyVara = Console.ReadLine();
 if (int.TryParse(nyVara, out int nummer))
     {
         int index = nummer - 1;
-        
+
         if (index >= 0 && index < varor.Count)
         {
             varor.RemoveAt(index);
             priser.RemoveAt(index);
         }
-
+        else
+        {
+            Console.WriteLine("Ogiltigt nummer.");
+        }
         continue;
     }
 
 // Användaren skriver in priset på varan
 Console.WriteLine("Skriv in priset: ");
-int pris = int.Parse(Console.ReadLine()!);
+string? prisInput = Console.ReadLine();
+
+if (!int.TryParse(prisInput, out int pris))
+{
+    Console.WriteLine("Ogiltigt pris.");
+    continue;
+}
 
 // Lägger till namn och pris i listorna
 varor.Add(nyVara!);
