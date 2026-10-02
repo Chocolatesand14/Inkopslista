@@ -7,23 +7,26 @@ using System.Collections.Generic;
 // Gör det möjligt att använda metoder som .All() och .Sum().
 using System.Linq;
 
-
-// Skapar listor för varor, priser och lagerstatus.
 // Två parallalla listor
 List<string> varor = new List<string>();
 List<int> priser = new List<int>();
 
-//Loop som körs tills användaren väljer att avsluta 
+// Loop som körs tills användaren väljer att avsluta 
 while (true)
 {
-//Visa hela listan
-Console.WriteLine("\n--- INKÖPSLISTA ---");
-for (int i = 0; i < varor.Count; i++)
+
+    Console.WriteLine("\n--- INKÖPSLISTA ---");
+
+    // Visar alla varor som en numrerad lista
+    for (int i = 0; i < varor.Count; i++)
 {
     Console.WriteLine($"{i + 1}. {varor[i]} - {priser[i]} kr");
 }
+
+// Räknar ut totalsumman
 int totalPris = priser.Sum();
 Console.WriteLine($"Totalt pris: {totalPris} kr");
+}
 
 Console.WriteLine("\nSkriv in en vara eller 'avsluta' för att avsluta");
 
