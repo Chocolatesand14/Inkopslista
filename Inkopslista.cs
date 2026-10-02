@@ -16,41 +16,163 @@ List<int> priser = new List<int>();
 //Loop som körs tills användaren väljer att avsluta 
 while (true)
 {
-//Visa hela listan
-Console.WriteLine("\n--- INKÖPSLISTA ---");
+// Visa aktuell inköpslista
+VisaLista(varor, priser);
+Console.WriteLine("Skriv in ett varunamn för att lägga till,
+ett nummer för att ta bort eller 'q' för att avsluta: ");
+string input = Console.ReadLine()!;
+
+if (input.ToLower() == "q")
+{
+    Console.WriteLine("Avslutar programmet...");
+    break;
+{
+if (int.TryParse(input, out int index))
+    TaBortVara(varor, priser, index);
+}
+else
+{
+    LäggTillVara(varor, priser, input);
+}
+}
+static void VisaLista(List<string> varor, List<int> priser)
+{
+    Console.WriteLine("\n--- INKÖPSLISTA ---");
+}
+if (varor.Count == 0)
+{
+    Console.WriteLine("Inga varor i listan.");
+    return;
+}
+int summa = 0;
 for (int i = 0; i < varor.Count; i++)
 {
     Console.WriteLine($"{i + 1}. {varor[i]} - {priser[i]} kr");
+    summa += priser[i];
+}
+Console.WriteLine($"Totalt pris: {summa} kr");
 }
 int totalPris = priser.Sum();
 Console.WriteLine($"Totalt pris: {totalPris} kr");
+}
 
-Console.WriteLine("\nSkriv in en vara eller e");
+// Visar alternativ
+Console.WriteLine("\nSkriv in ett varunamn för att lägga till");
+Console.WriteLine("Skriv in ett nummer för att ta bort en vara.");
+Console.WriteLine("Skriv 'dyrast' för att se den dyraste varan.");
+Console.WriteLine("Skriv 'sortera'för att sortera listan (a = alfabetisk, p = pris).");
+Console.WriteLine("Tryck 'Enter' för att avsluta.");
 
+Console.Write("> ");
+string? input = Console.ReadLine() ??"";
+
+// Avslutar programmet om användaren trycker Enter
+if (string.IsNullOrWhiteSpace(input))
+    {
+        Console.WriteLine("Avslutar programmet...");
+        break;
+    }
+
+}
+// Tar bort en vara om användaren skriver in ett nummer
+if (int.TryParse(input, out int number))
 {
-    "Mjölk",
-    "Grötbröd",
-    "Goudaost"
-};
-
-List<int> priser = new List<int>
+    if (number >= 1 && number <= varor.Count)
+    {
+        varor.RemoveAt(number - 1);
+        priser.RemoveAt(number - 1);
+        Console.WriteLine("Varan togs bort."); 
+    }
+    else
+    {
+        Console.WriteLine("Ogiltigt nummer.");
+    }
+    Console.WriteLine("Tryck Enter för att fortsätta...");
+    Console.ReadLine();
+    continue;
+    }
+    // Extra: visa vilken som är den dyraste varan
+    if (input.ToLower() == "dyrast")
+    {
+        if (varor.Count == 0)
+        {
+            Console.WriteLine("Inga varor i listan.");  
+        }
+else
 {
-    15,
-    28,
-    113
-};
-
-List<int> lager = new List<int>
+int maxIndex = priser.IndexOf(priser.Max());
+Console.WriteLine($"Den dyraste varan är 
+{varor[maxIndex]} - {priser[maxIndex]} kr.");
+Console.ReadLine();
+continue;
+}
+//Extra: sortera listan efter pris
+if (input.Equals("sortera", StringComparison.OrdinalIgnoreCase))
+    var indexLista = Enumerable.Range(0, priser.Count)
+    OrderBy(i => priser[i])
+    .ToList();
+    }
+}
+Console.WriteLine("\nProgrammet avslutades. Välkommer åter!");
 {
-    12,
-    9,
-    8
-};
-
-
-// Skapar en varukorg som håller reda på vilka varor som köpts och antal.
-Dictionary<string, int> varukorg = new Dictionary<string, int>();
-int totalPris = 0;
+    break;
+}
+else if (input.Equals("dyrast", StringComparison.OrdinalIgnoreCase))
+{
+    if (varor.Count == 0)
+    {
+        Console.WriteLine("Inga varor i listan.");
+    }
+    else
+    {
+        int dyrastIndex = priser.IndexOf(priser.Max());
+        Console.WriteLine($"Den dyraste varan är {varor[dyrastIndex]} - {priser[dyrastIndex]} kr");
+    }
+}
+else if (input.Equals("sortera", StringComparison.OrdinalIgnoreCase))
+{
+    if (varor.Count == 0)
+    {
+        Console.WriteLine("Inga varor i listan.");
+    }
+    else
+    {
+        List<(string, int)> varorOchPriser = varor.Zip(priser, (vara, pris) => (vara, pris)).ToList();
+        varorOchPriser.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+        varor = varorOchPriser.Select(x => x.Item1).ToList();
+        priser = varorOchPriser.Select(x => x.Item2).ToList();
+        Console.WriteLine("Varorna har sorterats efter pris.");
+    }
+}
+else if (int.TryParse(input, out int index))
+{
+    index--;
+    if (index >= 0 && index < varor.Count)
+    {
+        Console.WriteLine($"Tar bort {varor[index]} - {priser[index]} kr");
+        varor.RemoveAt(index);
+        priser.RemoveAt(index);
+    }
+    else
+    {
+        Console.WriteLine("Ogiltigt nummer.");
+    }
+}
+else
+{
+    Console.WriteLine("Skriv in priset för varan:");
+    string? prisInput = Console.ReadLine();
+    if (int.TryParse(prisInput, out int pris))
+    {
+        varor.Add(input);
+        priser.Add(pris);
+        Console.WriteLine($"Lade till {input} - {pris} kr");
+    }
+    else
+    {
+        Console.WriteLine("Ogiltigt pris.");
+    }
+}
 
 // Rubrik för inköpslistan.
 Console.WriteLine("==============================");
