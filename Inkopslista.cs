@@ -7,26 +7,38 @@ using System.Collections.Generic;
 // Gör det möjligt att använda metoder som .All() och .Sum().
 using System.Linq;
 
-// Två parallalla listor
+// Tre parallalla listor
 List<string> varor = new List<string>();
 List<int> priser = new List<int>();
+List<int> lager = new List<int>();
 
 // Loop som körs tills användaren väljer att avsluta 
 while (true)
 {
-    Console.WriteLine("\n--- INKÖPSLISTA ---");
+    // Rubrik för inköpslistan.
+Console.WriteLine("==============================");
+Console.WriteLine("        INKÖPSLISTA");
+Console.WriteLine("==============================");
+    
     // Visar alla varor som en numrerad lista
     for (int i = 0; i < varor.Count; i++)
 {
     Console.WriteLine($"{i + 1}. {varor[i]} - {priser[i]} kr");
 }
 // Räknar ut totalsumman
-int totalPris = priser.Sum();
-Console.WriteLine($"Totalt pris: {totalPris} kr");
+int listaTotal = priser.Sum();
+Console.WriteLine($"Totalt pris: {listaTotal} kr");
 
 // Användaren skriver in en vara
-Console.WriteLine("\nSkriv in en vara eller numret på vara du vill ta bort: ");
+Console.WriteLine("\nSkriv in en vara, numret på varan du vill ta bort eller 'klar': ");
+
 string? nyVara = Console.ReadLine();
+
+// Avslutar om användaren skriver "klar"
+if (nyVara?.ToLower() == "klar")
+{
+    break;
+}
 
 if (int.TryParse(nyVara, out int nummer))
     {
@@ -36,6 +48,7 @@ if (int.TryParse(nyVara, out int nummer))
         {
             varor.RemoveAt(index);
             priser.RemoveAt(index);
+            lager.RemoveAt(index);
         }
         else
         {
@@ -57,24 +70,19 @@ if (!int.TryParse(prisInput, out int pris))
 // Lägger till namn och pris i listorna
 varor.Add(nyVara!);
 priser.Add(pris);
+lager.Add(10); // Lägger till 10st i lager för varje ny vara
 }
 
 // Skapar en varukorg som håller reda på vilka varor som köpts och antal.
 Dictionary<string, int> varukorg = new Dictionary<string, int>();
 int totalPris = 0;
 
-// Rubrik för inköpslistan.
-Console.WriteLine("==============================");
-Console.WriteLine("        INKÖPSLISTA");
-Console.WriteLine("==============================");
-
 // Loopar tills alla varor är slut i lager och varukorgen är tom.
-while (!lager.All(x => x == 0) || varukorg.Count > 0)
+while (true)
 {
 
 // Visar alla varor, priser och lagerstatus.
     Console.WriteLine("\nVaror:");
-
     for (int i = 0; i < varor.Count; i++)
     {
 
