@@ -14,42 +14,41 @@ List<int> priser = new List<int>();
 // Loop som körs tills användaren väljer att avsluta 
 while (true)
 {
-
     Console.WriteLine("\n--- INKÖPSLISTA ---");
-
     // Visar alla varor som en numrerad lista
     for (int i = 0; i < varor.Count; i++)
 {
     Console.WriteLine($"{i + 1}. {varor[i]} - {priser[i]} kr");
 }
-
 // Räknar ut totalsumman
 int totalPris = priser.Sum();
 Console.WriteLine($"Totalt pris: {totalPris} kr");
+
+// Användaren skriver in en vara
+Console.WriteLine("\nSkriv in en vara eller numret på vara du vill ta bort: ");
+string? nyVara = Console.ReadLine();
+
+if (int.TryParse(nyVara, out int nummer))
+    {
+        int index = nummer - 1;
+        
+        if (index >= 0 && index < varor.Count)
+        {
+            varor.RemoveAt(index);
+            priser.RemoveAt(index);
+        }
+
+        continue;
+    }
+
+// Användaren skriver in priset på varan
+Console.WriteLine("Skriv in priset: ");
+int pris = int.Parse(Console.ReadLine()!);
+
+// Lägger till namn och pris i listorna
+varor.Add(nyVara!);
+priser.Add(pris);
 }
-
-Console.WriteLine("\nSkriv in en vara eller 'avsluta' för att avsluta");
-
-{
-    "Mjölk",
-    "Grötbröd",
-    "Goudaost"
-};
-
-List<int> priser = new List<int>
-{
-    15,
-    28,
-    113
-};
-
-List<int> lager = new List<int>
-{
-    12,
-    9,
-    8
-};
-
 
 // Skapar en varukorg som håller reda på vilka varor som köpts och antal.
 Dictionary<string, int> varukorg = new Dictionary<string, int>();
@@ -287,7 +286,7 @@ Console.WriteLine("==============================");
 Console.WriteLine("Öppet hela dygnet, alla dagar i veckan");
 Console.WriteLine("Välkommen åter!");
 
-} 
+
 
 
 
