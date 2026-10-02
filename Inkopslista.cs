@@ -9,7 +9,24 @@ using System.Linq;
 
 
 // Skapar listor för varor, priser och lagerstatus.
-List<string> varor = new List<string>
+// Två parallalla listor
+List<string> varor = new List<string>();
+List<int> priser = new List<int>();
+
+//Loop som körs tills användaren väljer att avsluta 
+while (true)
+{
+//Visa hela listan
+Console.WriteLine("\n--- INKÖPSLISTA ---");
+for (int i = 0; i < varor.Count; i++)
+{
+    Console.WriteLine($"{i + 1}. {varor[i]} - {priser[i]} kr");
+}
+int totalPris = priser.Sum();
+Console.WriteLine($"Totalt pris: {totalPris} kr");
+
+Console.WriteLine("\nSkriv in en vara eller e");
+
 {
     "Mjölk",
     "Grötbröd",
