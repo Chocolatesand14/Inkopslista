@@ -29,9 +29,24 @@ int listaTotal = priser.Sum();
 Console.WriteLine($"Totalt pris: {listaTotal} kr");
 
 // Användaren skriver in en vara
-Console.WriteLine("\nSkriv in en vara, numret på varan du vill ta bort,'kvitto' eller 'klar': ");
+Console.WriteLine("\nSkriv in en vara, numret på varan du vill ta bort, 'dyrast','kvitto' eller 'klar': ");
 
 string? nyVara = Console.ReadLine();
+
+if (nyVara?.ToLower() == "dyrast")
+{
+    if (priser.Count > 0)
+    {
+        int högstaPris = priser.Max();   
+        int index = priser.IndexOf(högstaPris);
+        Console.WriteLine($"Den dyraste varan är: {varor[index]} - {priser[index]} kr");
+    }
+    else
+    {
+            Console.WriteLine("Inga varor i listan.");
+    }
+    continue;
+}
 
 if (nyVara?.ToLower() == "kvitto")
 {
