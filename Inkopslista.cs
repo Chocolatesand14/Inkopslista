@@ -29,10 +29,11 @@ int listaTotal = priser.Sum();
 Console.WriteLine($"Totalt pris: {listaTotal} kr");
 
 // Användaren skriver in en vara
-Console.WriteLine("\nSkriv in en vara, numret på varan du vill ta bort, 'dyrast','kvitto' eller 'klar': ");
+Console.WriteLine("\nSkriv in en vara, numret på varan du vill ta bort, 'dyrast', 'sortera' eller 'klar': ");
 
 string? nyVara = Console.ReadLine();
 
+// Extra: Visar vilken vara som är dyrast
 if (nyVara?.ToLower() == "dyrast")
 {
     if (priser.Count > 0)
@@ -48,45 +49,38 @@ if (nyVara?.ToLower() == "dyrast")
     continue;
 }
 
-if (nyVara?.ToLower() == "kvitto")
+// Extra: Sorterar varorna efter pris, lägst till högst.
+if (nyVara?.ToLower() == "sortera")
 {
-    
-// Visar ett kvitto med köpta varor, antal och totalpris.
-// Om inga varor har köpts visas ett meddelande om detta.
-    int kvittoNummer = Random.Shared.Next(10000, 99999);
-    DateTime datum = DateTime.Now;
-
-// Efter att ha tittat på ett kvitto hemma valde jag att piffa upp mitt kvitto
-// med sådant som finns på ett riktigt kvitto.
-// Det jag la till var kvittonummer, dagens datum och vilken tid som köpet gjordes.
-    Console.WriteLine();
-    Console.WriteLine("==============================");
-    Console.WriteLine("           KVITTO");
-    Console.WriteLine("==============================");
-    Console.WriteLine($"Kvittonummer: {kvittoNummer}");
-    Console.WriteLine($"Datum: {datum:yyyy-MM-dd HH:mm}");
-    Console.WriteLine("------------------------------");
-
-    for (int i = 0; i < varor.Count; i++)
+    for (int i = 0; i < priser.Count - 1; i++)
     {
-        Console.WriteLine($"{varor[i]} - {priser[i]} kr");
-    }
-    Console.WriteLine("------------------------------");
-    Console.WriteLine($"Antal varor: {varor.Count}");
-    Console.WriteLine($"Totalt: {priser.Sum()} kr");
-    Console.WriteLine("==============================");
-    // Valde att avsluta kvittot med öppettider och "Välkommen åter".
-    Console.WriteLine("Öppet 24/7");
-    Console.WriteLine("Välkommen åter!");
-    break;
+         for (int j = i + 1; j < priser.Count; j++)
+          {
+        
+             if (priser[i] > priser[j])
+             {
+                 int tempPris = priser[i];
+                 priser[i] = priser[j];
+                 priser[j] = tempPris;
+
+                 string tempVara = varor[i];
+                 varor[i] = varor[j];
+                 varor[j] = tempVara;
+             }
+         }
+     }
+
+     Console.WriteLine("Varorna har sorterats efter pris.");
+     continue;
 }
 
-    // Avslutar om användaren skriver "klar"
+// Avslutar om användaren skriver "klar"
 if (nyVara?.ToLower() == "klar")
 {
     break;
 }
 
+// Tar bort en vara om användaren skriver in numret på varan
 if (int.TryParse(nyVara, out int nummer))
     {
         int index = nummer - 1;
