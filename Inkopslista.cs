@@ -15,10 +15,8 @@ List<int> priser = new List<int>();
 while (true)
 {
     // Rubrik för inköpslistan.
-   Console.WriteLine("==============================");
-   Console.WriteLine("        INKÖPSLISTA");
-   Console.WriteLine("==============================");
-    
+   Console.WriteLine("\n--- INKÖPSLISTA ---");
+
     // Visar alla varor som en numrerad lista
     for (int i = 0; i < varor.Count; i++)
 {
